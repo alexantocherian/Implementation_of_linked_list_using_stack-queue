@@ -1,0 +1,278 @@
+Program :-
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int val;
+    struct Node *next;
+};
+
+struct Node *top = NULL;
+struct Node *front = NULL;
+struct Node *rear = NULL;
+
+struct Node* newNode(int x) {
+    struct Node *n = (struct Node*)malloc(sizeof(struct Node));
+    n->val = x;
+    n->next = NULL;
+    return n;
+}
+
+
+void push(int x) {
+    struct Node *n = newNode(x);
+    n->next = top;
+    top = n;
+    printf("Pushed %d\n", x);
+}
+
+void pop() {
+    if (top == NULL) {
+        printf("Stack is empty\n");
+        return;
+    }
+    struct Node *t = top;
+    printf("Popped %d\n", t->val);
+    top = top->next;
+    free(t);
+}
+
+void displayStack() {
+    if (top == NULL) {
+        printf("Stack is empty\n");
+        return;
+    }
+    struct Node *t = top;
+    printf("Stack elements: ");
+    while (t != NULL) {
+        printf("%d ", t->val);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+void enqueue(int x) {
+    struct Node *n = newNode(x);
+    if (rear == NULL) {
+        front = rear = n;
+    } else {
+        
+
+        rear->next = n;
+        rear = n;
+    }
+    printf("Enqueued %d\n", x);
+}
+
+void dequeue() {
+    if (front == NULL) {
+        printf("Queue is empty\n");
+        return;
+    }
+    struct Node *t = front;
+    printf("Dequeued %d\n", t->val);
+    front = front->next;
+    if (front == NULL)
+        rear = NULL;
+    free(t);
+}
+
+void displayQueue() {
+    if (front == NULL) {
+        printf("Queue is empty\n");
+        return;
+    }
+    struct Node *t = front;
+    printf("Queue elements: ");
+    while (t != NULL) {
+        printf("%d ", t->val);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int mainChoice, choice, x;
+
+    while (1) {
+        printf("\n=== MAIN MENU ===\n");
+        printf("1. Stack Operations\n");
+        printf("2. Queue Operations\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &mainChoice);
+
+        switch (mainChoice) {
+            case 1:
+                while (1) {
+                    printf("\n--- STACK MENU ---\n");
+                    printf("1. Push\n");
+                    printf("2. Pop\n");
+                    printf("3. Display Stack\n");
+                    printf("4. Back to Main Menu\n");
+                    printf("Enter your choice: ");
+                    scanf("%d", &choice);
+
+                    if (choice == 4) break;
+
+                    switch (choice) {
+                        case 1:
+                            printf("Enter value: ");
+                            scanf("%d", &x);
+                            push(x);
+                            break;
+                        case 2:
+                            pop();
+                            break;
+                        case 3:
+                            displayStack();
+                            break;
+                        default:
+                            printf("Invalid choice!\n");
+                    }
+                }
+                break;
+
+            case 2:
+                while (1) {
+                    printf("\n--- QUEUE MENU ---\n");
+                    printf("1. Enqueue\n");
+                    printf("2. Dequeue\n");
+                    printf("3. Display Queue\n");
+                    printf("4. Back to Main Menu\n");
+                    printf("Enter your choice: ");
+                    scanf("%d", &choice);
+
+                    if (choice == 4) break;
+
+                    switch (choice) {
+                        case 1:
+                            printf("Enter value: ");
+                            scanf("%d", &x);
+                            enqueue(x);
+                            break;
+                        case 2:
+                            dequeue();
+                            break;
+                        case 3:
+                            displayQueue();
+                            break;
+                        default:
+                            printf("Invalid choice!\n");
+                    }
+                }
+                break;
+
+            case 3:
+                exit(0);
+
+            default:
+                printf("Invalid main menu choice!\n");
+        }
+    }
+
+    return 0;
+}
+
+Output :-
+
+=== MAIN MENU ===
+1. Stack Operations
+2. Queue Operations
+3. Exit
+Enter your choice: 1
+
+--- STACK MENU ---
+1. Push
+2. Pop
+3. Display Stack
+4. Back to Main Menu
+Enter your choice: 1
+Enter value: 12
+Pushed 12
+
+--- STACK MENU ---
+1. Push
+2. Pop
+3. Display Stack
+4. Back to Main Menu
+Enter your choice: 1
+Enter value: 23
+Pushed 23
+
+--- STACK MENU ---
+1. Push
+2. Pop
+3. Display Stack
+4. Back to Main Menu
+Enter your choice: 2
+Popped 23
+
+--- STACK MENU ---
+1. Push
+2. Pop
+3. Display Stack
+4. Back to Main Menu
+Enter your choice: 3
+Stack elements: 12 
+
+--- STACK MENU ---
+1. Push
+2. Pop
+3. Display Stack
+4. Back to Main Menu
+Enter your choice: 4
+
+=== MAIN MENU ===
+1. Stack Operations
+2. Queue Operations
+3. Exit
+Enter your choice: 2
+
+--- QUEUE MENU ---
+1. Enqueue
+2. Dequeue
+3. Display Queue
+4. Back to Main Menu
+Enter your choice: 1
+Enter value: 33
+Enqueued 33
+
+--- QUEUE MENU ---
+1. Enqueue
+2. Dequeue
+3. Display Queue
+4. Back to Main Menu
+Enter your choice: 1
+Enter value: 41
+Enqueued 41
+
+--- QUEUE MENU ---
+1. Enqueue
+2. Dequeue
+3. Display Queue
+4. Back to Main Menu
+Enter your choice: 2
+Dequeued 33
+
+--- QUEUE MENU ---
+1. Enqueue
+2. Dequeue
+3. Display Queue
+4. Back to Main Menu
+Enter your choice: 3
+Queue elements: 41 
+
+--- QUEUE MENU ---
+1. Enqueue
+2. Dequeue
+3. Display Queue
+4. Back to Main Menu
+Enter your choice: 4
+
+=== MAIN MENU ===
+1. Stack Operations
+2. Queue Operations
+3. Exit
+Enter your choice: 3
